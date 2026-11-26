@@ -18,7 +18,7 @@ COPY --chown=user . .
 RUN python -m ml.train
 
 ENV APP_ENV=production \
-    DATABASE=/home/user/app/app.db \
+    DATABASE=/temp/app.db \
     PORT=7860
 EXPOSE 7860
 

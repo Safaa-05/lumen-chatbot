@@ -48,7 +48,7 @@
   function showTyping() {
     const m = el("div", "msg bot");
     const dots = el("div", "typing");
-    dots.setAttribute("aria-label", "Haven is typing");
+    dots.setAttribute("aria-label", "Lumen is typing");
     for (let i = 0; i < 3; i++) dots.appendChild(el("span"));
     m.appendChild(dots);
     thread.appendChild(m);

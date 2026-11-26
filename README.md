@@ -1,5 +1,5 @@
 ---
-title: Haven
+title: Lumen
 emoji: 🌿
 colorFrom: green
 colorTo: blue
@@ -8,9 +8,9 @@ app_port: 7860
 pinned: false
 ---
 
-# Haven: an emotion-aware mental health companion
+# Lumen: an emotion-aware mental health companion
 
-![tests](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/tests.yml/badge.svg)
+![tests](https://github.com/Safaa-05/lumen-chatbot/actions/workflows/tests.yml/badge.svg)
 
 **Live demo:** TODO (direct `.hf.space` link) · demo data may reset when the app restarts
 
@@ -18,7 +18,7 @@ A web chatbot for students that detects the emotion and intensity of a message, 
 supportive and relaxation-based responses, and tracks mood over time. Built with Python, Flask,
 scikit-learn (TF-IDF) and SQLite.
 
-> Haven is a self-help tool, not a medical device or a substitute for professional care.
+> Lumen is a self-help tool, not a medical device or a substitute for professional care.
 
 TODO: add two screenshots (chat page, mood dashboard)
 
