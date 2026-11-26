@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>Mood history | Haven</title>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='pages.css') }}">
+</head>
+<body class="page">
+  <header class="bar">
+    <a class="brand" href="{{ url_for('index') }}">Haven</a>
+    <div class="bar-tools">
+      <a class="back" href="{{ url_for('index') }}">Back to chat</a>
+      {% include "_account_nav.html" %}
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="head">
+      <div>
+        <h1>Your mood history</h1>
+        <p class="lead">Only emotion labels and scores are saved. Your messages are never stored.</p>
+      </div>
+      <div class="controls">
+        <label class="sr-only" for="range">Time range</label>
+        <select id="range">
+          <option value="7">Last 7 days</option>
+          <option value="30" selected>Last 30 days</option>
+          <option value="90">Last 90 days</option>
+        </select>
+        <button type="button" id="wipe" class="btn-quiet">Delete my data</button>
+      </div>
+    </div>
+
+    <section id="empty" class="empty-note" hidden>
+      <p>No check-ins in this period yet.</p>
+      <p><a class="btn-quiet" href="{{ url_for('index') }}">Start a conversation</a></p>
+    </section>
+
+    <div id="results" hidden>
+      <div class="cards">
+        <div class="stat"><span class="stat-label">Check-ins</span><strong id="statTotal">0</strong></div>
+        <div class="stat"><span class="stat-label">Most common feeling</span><strong id="statTop">-</strong></div>
+        <div class="stat"><span class="stat-label">Last check-in</span><strong id="statLast">-</strong></div>
+      </div>
+
+      <section class="panel">
+        <h2>Mood over time</h2>
+        <p class="hint">Each point is the day's average. Above the line is a positive mood, below it is a low mood, and the further from the line, the stronger the feeling.</p>
+        <div id="trend" class="chart"></div>
+      </section>
+
+      <section class="panel">
+        <h2>What you've been feeling</h2>
+        <div id="bars" class="bars"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+</body>
+</html>

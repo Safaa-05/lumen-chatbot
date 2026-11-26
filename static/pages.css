@@ -1,0 +1,103 @@
+/* Styles for the account nav, login/register pages and the mood dashboard.
+   Colours and fonts come from the variables in style.css. */
+
+:root { --dusk: #4F6FA3; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --dusk: #8FA9D3; } }
+:root[data-theme="dark"] { --dusk: #8FA9D3; }
+
+body.page { display: block; height: auto; min-height: 100dvh; }
+.brand { color: inherit; text-decoration: none; }
+
+/* ---------- account nav (shared) ---------- */
+.acct { display: flex; align-items: center; gap: 14px; font-size: 14px; }
+.bar-tools .acct { padding-left: 14px; border-left: 1px solid var(--line); }
+.acct a:not(.btn-quiet), .back { color: var(--muted); text-decoration: none; font-size: 14px; }
+.acct a:not(.btn-quiet):hover, .back:hover { color: var(--ink); }
+a.btn-quiet { display: inline-block; text-decoration: none; color: inherit; }
+.who { color: var(--muted); }
+form.inline { margin: 0; }
+.linkish { border: 0; background: none; padding: 0; color: var(--muted); font-size: 14px; }
+.linkish:hover { color: var(--ink); text-decoration: underline; }
+
+/* ---------- forms ---------- */
+.narrow { max-width: 400px; margin: 0 auto; padding: 48px 20px 64px; }
+.narrow h1, .wrap h1 { margin: 0 0 8px; font: 500 clamp(28px, 4.6vw, 36px)/1.15 var(--serif); letter-spacing: -.2px; }
+.lead { margin: 0 0 24px; color: var(--muted); }
+
+.stack { display: flex; flex-direction: column; gap: 16px; }
+.stack label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 600; }
+input, select {
+  font: inherit; color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 12px; padding: 11px 14px;
+}
+input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.primary {
+  padding: 12px 16px; border: 0; border-radius: 12px; font-weight: 600;
+  background: var(--accent); color: var(--on-accent);
+}
+.primary:hover { filter: brightness(1.06); }
+.error {
+  margin: 0 0 16px; padding: 10px 14px; border-radius: 10px;
+  background: var(--alert-bg); color: var(--alert); font-size: 14.5px;
+}
+.alt { margin-top: 20px; color: var(--muted); font-size: 14.5px; }
+.alt a, .empty-note a:not(.btn-quiet) { color: var(--accent); }
+
+/* ---------- dashboard ---------- */
+.wrap { max-width: 880px; margin: 0 auto; padding: 36px 20px 64px; }
+.head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+.head .lead { margin: 0; }
+.controls { display: flex; gap: 10px; align-items: center; }
+.controls select { padding: 8px 12px; }
+
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+.stat {
+  display: flex; flex-direction: column; gap: 4px; padding: 16px 18px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+}
+.stat-label { font-size: 13px; color: var(--muted); }
+.stat strong { font: 500 24px/1.2 var(--serif); text-transform: capitalize; }
+#statLast { font: 600 16px/1.4 var(--sans); text-transform: none; padding-top: 6px; }
+
+.panel {
+  padding: 20px; margin-bottom: 16px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+}
+.panel h2 { margin: 0 0 4px; font: 500 20px var(--serif); }
+.panel h2 + .bars { margin-top: 14px; }
+.hint { margin: 0 0 14px; font-size: 13.5px; color: var(--muted); max-width: 62ch; }
+.chart svg { display: block; max-width: 100%; height: auto; overflow: visible; }
+.chart text { fill: var(--muted); font: 12px var(--sans); }
+.chart .grid { stroke: var(--line); stroke-width: 1; }
+.chart .zero { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 4; opacity: .6; }
+.chart .line { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+.chart .dot { fill: var(--surface); stroke: var(--accent); stroke-width: 2.5; }
+.chart .dot:hover { fill: var(--accent); }
+
+.bars { display: flex; flex-direction: column; gap: 10px; }
+.bar-row { display: grid; grid-template-columns: 84px 1fr 32px; align-items: center; gap: 12px; font-size: 14.5px; }
+.bar-name { text-transform: capitalize; }
+.bar-track { height: 12px; background: var(--bg); border-radius: 999px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 999px; background: var(--accent); }
+.bar-fill.low { background: var(--dusk); }
+.bar-fill.neutral { background: var(--muted); }
+.bar-fill.distress { background: var(--alert); }
+.bar-count { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.empty-note {
+  padding: 40px 20px; text-align: center; color: var(--muted);
+  background: var(--surface); border: 1px dashed var(--line); border-radius: 16px;
+}
+
+/* ---------- small screens ---------- */
+@media (max-width: 700px) {
+  /* Row 1: brand + account links. Row 2: the tools. */
+  .bar { flex-wrap: wrap; justify-content: flex-start; row-gap: 8px; column-gap: 14px; padding: 10px 14px; }
+  .bar-tools { display: contents; }
+  .bar-tools .acct { order: 1; margin-left: auto; padding-left: 0; border-left: 0; gap: 14px; }
+  .bar-tools > .switch, .bar-tools > .icon-btn, .bar-tools > #newChat, .bar-tools > .back { order: 2; }
+  .who { display: none; }
+  .cards { grid-template-columns: 1fr; }
+  .wrap { padding-top: 24px; }
+  .panel { padding: 16px; }
+}

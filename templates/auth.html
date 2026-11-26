@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ 'Create account' if mode == 'register' else 'Log in' }} | Haven</title>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='pages.css') }}">
+</head>
+<body class="page">
+  <header class="bar">
+    <a class="brand" href="{{ url_for('index') }}">Haven</a>
+    <div class="bar-tools"><a class="back" href="{{ url_for('index') }}">Back to chat</a></div>
+  </header>
+
+  <main class="narrow">
+    <h1>{{ 'Create your account' if mode == 'register' else 'Welcome back' }}</h1>
+    <p class="lead">
+      {% if mode == 'register' %}
+        An account lets you see how your mood changes over time. We save your emotion labels and scores, never your messages.
+      {% else %}
+        Log in to see your mood history.
+      {% endif %}
+    </p>
+
+    {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+
+    <form method="post" class="stack">
+      <input type="hidden" name="csrf" value="{{ csrf_token() }}">
+      <label>Username
+        <input name="username" value="{{ name }}" required minlength="3" maxlength="30"
+               pattern="[A-Za-z0-9_]+" autocomplete="username" autocapitalize="none">
+      </label>
+      <label>Password
+        <input name="password" type="password" required minlength="8" maxlength="128"
+               autocomplete="{{ 'new-password' if mode == 'register' else 'current-password' }}">
+      </label>
+      <button type="submit" class="primary">{{ 'Create account' if mode == 'register' else 'Log in' }}</button>
+    </form>
+
+    <p class="alt">
+      {% if mode == 'register' %}Already have an account? <a href="{{ url_for('login') }}">Log in</a>
+      {% else %}New here? <a href="{{ url_for('register') }}">Create an account</a>{% endif %}
+    </p>
+  </main>
+</body>
+</html>

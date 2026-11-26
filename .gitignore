@@ -1,0 +1,13 @@
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.vscode/
+
+# local secrets and data
+.env
+app.db
+*.db
+
+# the model is trained during the Docker build, so the pickle is not committed
+models/*.pkl

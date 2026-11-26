@@ -1,0 +1,29 @@
+{
+  "best": "Linear SVM",
+  "validation": {
+    "Complement NB": {
+      "val_accuracy": 0.8782,
+      "val_macro_f1": 0.8467
+    },
+    "LogReg C=1": {
+      "val_accuracy": 0.8762,
+      "val_macro_f1": 0.8488
+    },
+    "LogReg C=5": {
+      "val_accuracy": 0.8937,
+      "val_macro_f1": 0.8618
+    },
+    "LogReg C=20": {
+      "val_accuracy": 0.8932,
+      "val_macro_f1": 0.8593
+    },
+    "Linear SVM": {
+      "val_accuracy": 0.9008,
+      "val_macro_f1": 0.8683
+    }
+  },
+  "test": {
+    "accuracy": 0.8889,
+    "macro_f1": 0.8332
+  }
+}
