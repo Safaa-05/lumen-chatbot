@@ -2,7 +2,9 @@
 
 ![tests](https://github.com/Safaa-05/lumen-chatbot/actions/workflows/tests.yml/badge.svg)
 
-**Live demo:** TODO (direct `.hf.space` link) · demo data may reset when the app restarts
+**Live demo:** https://lumen-chatbot-t28d.onrender.com
+
+> Free hosting: the first load after a pause can take about a minute, and demo accounts and history may reset when the app restarts.
 
 A web chatbot for students that detects the emotion and intensity of a message, replies with
 supportive and relaxation-based responses, and tracks mood over time. Built with Python, Flask,
@@ -10,14 +12,13 @@ scikit-learn (TF-IDF) and SQLite.
 
 > Lumen is a self-help tool, not a medical device or a substitute for professional care.
 
-TODO: add two screenshots (chat page, mood dashboard)
 
 ## Features
 - Emotion detection (6 classes) with confidence scores and a rule-based intensity score
 - Crisis-safety layer that runs before the model and shows Indian helplines (Tele-MANAS 14416, KIRAN 1800-599-0019, 112)
 - Short-term memory of earlier emotions within a session (labels only, never message text)
 - Accounts with hashed passwords, a mood dashboard, and a "delete my data" button
-- Tests (32), GitHub Actions CI and a Dockerfile
+- Tests (32), GitHub Actions CI 
 
 ## How the model was built
 Dataset: Kaggle "Emotions dataset for NLP" (CC BY-SA 4.0), 20,000 short texts labelled sadness, joy,
@@ -40,8 +41,7 @@ Weakest classes: surprise (F1 0.64) and love (0.77).
 ![Confusion matrix](models/confusion_matrix.png)
 
 ### Error analysis
-TODO: write 3-4 sentences in your own words. Facts from the validation confusion matrix: joy and love are
-confused most (25 + 20 cases), then fear and sadness (13 + 9), and surprise has the fewest examples.
+On the validation set the model made 198 mistakes out of 1,995 texts (9.9%). Reading them showed three patterns. First, it relies mostly on single words and short word pairs, and it ignores negation and contrast: "i didn t feel accepted" was predicted as love, probably because of the word "accepted", and "i went from feeling helpless to powerful" was predicted as fear, probably because of "helpless". Second, the biggest confusions are between emotions that share vocabulary. Joy and love (25 and 20 cases) both use warm words such as "accepted", "passionate" and "gratitude", and love has far less training data than joy (about 8% versus 33%). Fear and sadness (13 and 9 cases) both use words like "helpless" and "afraid", and the same word appears under both labels in the data, so no model could be right every time. Third, some labels look questionable, for example "i feel like im just not passionate about anything anymore" is labelled joy, which suggests part of the error rate is label noise and not model failure. Surprise is the weakest class (test F1 0.64), probably because it makes up only about 4% of the training data and shares positive words with joy. A very short sentence, "i love my family so much", was classified as sadness at 60% confidence, a reminder that short texts give the model little context. To improve this I would add more examples of the rare classes, use human-checked labels with finer categories (such as GoEmotions), and try a model that reads word order and context, such as DistilBERT.
 
 ## Safety and privacy
 - High-risk phrases trigger a fixed crisis message with helplines; the model cannot override it.
