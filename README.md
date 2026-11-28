@@ -1,13 +1,3 @@
----
-title: Lumen
-emoji: 🌿
-colorFrom: green
-colorTo: blue
-sdk: docker
-app_port: 7860
-pinned: false
----
-
 # Lumen: an emotion-aware mental health companion
 
 ![tests](https://github.com/Safaa-05/lumen-chatbot/actions/workflows/tests.yml/badge.svg)
